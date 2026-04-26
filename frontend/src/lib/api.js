@@ -2,7 +2,7 @@
  * API utility — centralized fetch wrapper with JWT auth headers.
  */
 
-const BASE_URL = 'https://nurdam-cleanroom-api.abdallahussein713.workers.dev/';
+const BASE_URL = 'https://nurdam-cleanroom-api.abdallahussein713.workers.dev';
 
 function getToken() {
   return localStorage.getItem('nurdam_token');
