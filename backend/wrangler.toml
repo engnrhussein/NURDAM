@@ -4,9 +4,9 @@ compatibility_date = "2025-04-01"
 
 [vars]
 JWT_SECRET = "nurdam-cleanroom-secret-change-in-production"
-CORS_ORIGIN = "http://localhost:5173"
+CORS_ORIGIN = "*"
 
 [[d1_databases]]
 binding = "DB"
 database_name = "nurdam-db"
-database_id = "local-dev-placeholder"
+database_id = "c666b8e9-b840-476f-82bf-e3bf20f1db70"
