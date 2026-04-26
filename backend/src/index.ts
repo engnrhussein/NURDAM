@@ -21,12 +21,11 @@ export type Env = {
 const app = new Hono<Env>();
 
 // ─── CORS ────────────────────────────────────────────────────────────
+// Use '*' to ensure it covers /auth, /v1, and any other routes
 app.use(
-  '/api/*',
+  '*',
   cors({
-    origin: (origin, c) => {
-      return origin || '*';
-    },
+    origin: '*', 
     allowMethods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
     allowHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
