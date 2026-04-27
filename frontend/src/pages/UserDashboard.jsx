@@ -79,7 +79,7 @@ export default function UserDashboard() {
               <div key={a.id} className="flex items-center justify-between px-6 py-3">
                 <div>
                   <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>{a.equipment_name}</p>
-                  <p className="text-xs" style={{ color: 'var(--text-muted)' }}>{new Date(a.start_time).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+                  <p className="text-xs" style={{ color: 'var(--text-muted)' }}>{new Date(a.start_time).toLocaleString('en-GB', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
                 </div>
                 <span className="px-2 py-1 rounded text-xs font-medium" style={statusStyles[a.status]}>{a.status}</span>
               </div>

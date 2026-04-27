@@ -119,8 +119,8 @@ export default function CalendarPage() {
                 <div className="flex items-center gap-3 text-sm">
                   <span style={{ color: 'var(--text-muted)' }}>Time:</span>
                   <span style={{ color: 'var(--text-primary)' }}>
-                    {new Date(selectedEvent.start).toLocaleString()}
-                    {selectedEvent.end && ` — ${new Date(selectedEvent.end).toLocaleString()}`}
+                    {new Date(selectedEvent.start).toLocaleString('en-GB', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                    {selectedEvent.end && ` — ${new Date(selectedEvent.end).toLocaleString('en-GB', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}`}
                   </span>
                 </div>
               )}

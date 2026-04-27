@@ -35,7 +35,7 @@ export default function ApprovalQueue() {
     rejected: { bg: 'var(--accent-rose-dim)', color: 'var(--accent-rose)' },
   };
 
-  function formatDate(d) { return new Date(d).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }); }
+  function formatDate(d) { return new Date(d).toLocaleString('en-GB', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }); }
 
   return (
     <div>
