@@ -22,10 +22,18 @@ async function request(endpoint, options = {}) {
     headers,
   });
 
-  const data = await response.json();
+  const contentType = response.headers.get('content-type');
+  let data;
+
+  if (contentType && contentType.includes('application/json')) {
+    data = await response.json();
+  } else {
+    const text = await response.text();
+    throw new Error(`Server Error (${response.status}): ${text || 'Invalid API response'}`);
+  }
 
   if (!response.ok) {
-    throw new Error(data.error || `Request failed with status ${response.status}`);
+    throw new Error(data?.error || `Request failed with status ${response.status}`);
   }
 
   return data;
@@ -44,10 +52,19 @@ export const api = {
 
   // Users
   getUsers: () => request('/v1/users'),
-  createUser: (name) =>
+  createUser: (name, role) =>
     request('/v1/users', {
       method: 'POST',
-      body: JSON.stringify({ name }),
+      body: JSON.stringify({ name, role }),
+    }),
+  updateUser: (id, updates) =>
+    request(`/v1/users/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(updates),
+    }),
+  deleteUser: (id) =>
+    request(`/v1/users/${id}`, {
+      method: 'DELETE',
     }),
 
   // Equipment
@@ -90,4 +107,3 @@ export const api = {
   // Stats
   getStats: () => request('/v1/stats'),
 };
-

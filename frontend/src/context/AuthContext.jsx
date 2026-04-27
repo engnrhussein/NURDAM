@@ -29,6 +29,7 @@ export function AuthProvider({ children }) {
           name: payload.name,
           username: payload.username,
           role: payload.role,
+          is_boss: payload.is_boss,
         });
       } else {
         localStorage.removeItem('nurdam_token');

@@ -1,4 +1,4 @@
--- NÜRDAM Cleanroom Management System — D1 Schema
+-- NÜRDAM Cleanroom Management System — D1 Schema v2
 -- Run: wrangler d1 execute nurdam-db --local --file=./schema.sql
 
 DROP TABLE IF EXISTS Logs;
@@ -12,7 +12,10 @@ CREATE TABLE Users (
     name TEXT NOT NULL,
     username TEXT NOT NULL UNIQUE,
     password_hash TEXT NOT NULL,
+    password_plain TEXT DEFAULT NULL,
     role TEXT NOT NULL CHECK(role IN ('admin', 'user')) DEFAULT 'user',
+    is_blocked INTEGER NOT NULL DEFAULT 0,
+    is_boss INTEGER NOT NULL DEFAULT 0,
     created_at TEXT DEFAULT (datetime('now'))
 );
 
