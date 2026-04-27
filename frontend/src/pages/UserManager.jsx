@@ -108,16 +108,16 @@ export default function UserManager() {
       {/* Create user form */}
       <div className="rounded-xl p-6 mb-6 animate-fade-in" style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)' }}>
         <h2 className="text-base font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>Create New User</h2>
-        <form onSubmit={handleCreate} className="flex gap-3 flex-wrap">
+        <form onSubmit={handleCreate} className="flex flex-col sm:flex-row gap-3">
           <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Full Name (e.g., Ahmet Yılmaz)" required
-            className="flex-1 min-w-[200px] px-4 py-3 rounded-lg text-sm outline-none" style={{ background: 'var(--bg-input)', border: '1px solid var(--border-color)', color: 'var(--text-primary)' }} />
+            className="flex-1 px-4 py-3 rounded-lg text-sm outline-none w-full" style={{ background: 'var(--bg-input)', border: '1px solid var(--border-color)', color: 'var(--text-primary)' }} />
           <select value={newRole} onChange={e => setNewRole(e.target.value)}
-            className="px-4 py-3 rounded-lg text-sm outline-none cursor-pointer"
+            className="w-full sm:w-auto px-4 py-3 rounded-lg text-sm outline-none cursor-pointer"
             style={{ background: 'var(--bg-input)', border: '1px solid var(--border-color)', color: 'var(--text-primary)' }}>
             <option value="user">User</option>
             <option value="admin">Admin</option>
           </select>
-          <button type="submit" disabled={creating} className="px-6 py-3 rounded-lg text-sm font-semibold cursor-pointer"
+          <button type="submit" disabled={creating} className="w-full sm:w-auto px-6 py-3 rounded-lg text-sm font-semibold cursor-pointer"
             style={{ background: 'linear-gradient(135deg, #10b981, #059669)', color: 'white', border: 'none', opacity: creating ? 0.6 : 1 }}>
             {creating ? 'Creating...' : '+ Create User'}
           </button>
@@ -157,7 +157,7 @@ export default function UserManager() {
           <p className="text-sm py-8 text-center" style={{ color: 'var(--text-muted)' }}>No users registered yet</p>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full">
+            <table className="w-full min-w-[900px]">
               <thead>
                 <tr style={{ borderBottom: '1px solid var(--border-color)' }}>
                   <th className="text-left px-4 py-3 text-xs font-semibold uppercase" style={{ color: 'var(--text-muted)' }}>Name</th>
@@ -192,11 +192,13 @@ export default function UserManager() {
                       <td className="px-4 py-4">
                         <div className="flex items-center gap-2">
                           <span className="text-sm font-mono" style={{ color: 'var(--text-secondary)' }}>
-                            {showPasswords[u.id] ? (u.password_plain || <span style={{color: 'var(--accent-amber)'}}>[Not Saved]</span>) : '••••••••'}
+                            {showPasswords[u.id] ? (u.password_plain || '—') : '••••••••'}
                           </span>
-                          <button onClick={() => togglePassword(u.id)} className="text-xs cursor-pointer px-1" style={{ background: 'none', border: 'none', color: 'var(--accent-cyan)' }}>
-                            {showPasswords[u.id] ? '🙈' : '👁️'}
-                          </button>
+                          {u.password_plain && (
+                            <button onClick={() => togglePassword(u.id)} className="text-xs cursor-pointer px-1" style={{ background: 'none', border: 'none', color: 'var(--accent-cyan)' }}>
+                              {showPasswords[u.id] ? '🙈' : '👁️'}
+                            </button>
+                          )}
                         </div>
                       </td>
                       <td className="px-4 py-4">

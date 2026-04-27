@@ -84,12 +84,12 @@ export default function EquipmentManager() {
         </div>
       )}
 
-      <div className="rounded-xl p-6 mb-8 animate-fade-in" style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)' }}>
+      <div className="rounded-xl p-4 sm:p-6 mb-8 animate-fade-in" style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)' }}>
         <h2 className="text-base font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>Add New Equipment</h2>
-        <form onSubmit={handleAdd} className="flex gap-3">
+        <form onSubmit={handleAdd} className="flex flex-col sm:flex-row gap-3">
           <input type="text" value={newName} onChange={e => setNewName(e.target.value)} placeholder="Equipment name" required
-            className="flex-1 px-4 py-3 rounded-lg text-sm outline-none" style={inputStyle} />
-          <button type="submit" disabled={adding} className="px-6 py-3 rounded-lg text-sm font-semibold cursor-pointer"
+            className="flex-1 px-4 py-3 rounded-lg text-sm outline-none w-full" style={inputStyle} />
+          <button type="submit" disabled={adding} className="w-full sm:w-auto px-6 py-3 rounded-lg text-sm font-semibold cursor-pointer"
             style={{ background: 'linear-gradient(135deg, #06b6d4, #0891b2)', color: 'white', border: 'none', opacity: adding ? 0.6 : 1 }}>
             {adding ? 'Adding...' : '+ Add'}
           </button>
@@ -107,41 +107,43 @@ export default function EquipmentManager() {
         ) : equipment.length === 0 ? (
           <p className="text-sm py-8 text-center" style={{ color: 'var(--text-muted)' }}>No equipment registered</p>
         ) : (
-          <table className="w-full">
-            <thead>
-              <tr style={{ borderBottom: '1px solid var(--border-color)' }}>
-                <th className="text-left px-6 py-3 text-xs font-semibold uppercase" style={{ color: 'var(--text-muted)' }}>Name</th>
-                <th className="text-left px-6 py-3 text-xs font-semibold uppercase" style={{ color: 'var(--text-muted)' }}>Status</th>
-                <th className="text-right px-6 py-3 text-xs font-semibold uppercase" style={{ color: 'var(--text-muted)' }}>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {equipment.map(eq => (
-                <tr key={eq.id} style={{ borderBottom: '1px solid var(--border-color)' }}>
-                  <td className="px-6 py-4 text-sm font-medium" style={{ color: 'var(--text-primary)' }}>{eq.name}</td>
-                  <td className="px-6 py-4">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium"
-                      style={{ background: eq.is_active ? 'var(--accent-emerald-dim)' : 'var(--accent-rose-dim)', color: eq.is_active ? 'var(--accent-emerald)' : 'var(--accent-rose)' }}>
-                      <span className="w-1.5 h-1.5 rounded-full" style={{ background: eq.is_active ? 'var(--accent-emerald)' : 'var(--accent-rose)' }} />
-                      {eq.is_active ? 'Active' : 'Inactive'}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center justify-end gap-2">
-                      <button onClick={() => openEdit(eq)} className="px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer"
-                        style={{ background: 'var(--accent-cyan-dim)', color: 'var(--accent-cyan)', border: 'none' }}>
-                        ✏️ Edit
-                      </button>
-                      <button onClick={() => handleToggle(eq.id, eq.is_active)} className="px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer"
-                        style={{ background: eq.is_active ? 'var(--accent-rose-dim)' : 'var(--accent-emerald-dim)', color: eq.is_active ? 'var(--accent-rose)' : 'var(--accent-emerald)', border: `1px solid ${eq.is_active ? 'rgba(244,63,94,0.2)' : 'rgba(16,185,129,0.2)'}` }}>
-                        {eq.is_active ? 'Deactivate' : 'Activate'}
-                      </button>
-                    </div>
-                  </td>
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[500px]">
+              <thead>
+                <tr style={{ borderBottom: '1px solid var(--border-color)' }}>
+                  <th className="text-left px-4 sm:px-6 py-3 text-xs font-semibold uppercase" style={{ color: 'var(--text-muted)' }}>Name</th>
+                  <th className="text-left px-4 sm:px-6 py-3 text-xs font-semibold uppercase" style={{ color: 'var(--text-muted)' }}>Status</th>
+                  <th className="text-right px-4 sm:px-6 py-3 text-xs font-semibold uppercase" style={{ color: 'var(--text-muted)' }}>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {equipment.map(eq => (
+                  <tr key={eq.id} style={{ borderBottom: '1px solid var(--border-color)' }}>
+                    <td className="px-4 sm:px-6 py-4 text-sm font-medium" style={{ color: 'var(--text-primary)' }}>{eq.name}</td>
+                    <td className="px-4 sm:px-6 py-4">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium"
+                        style={{ background: eq.is_active ? 'var(--accent-emerald-dim)' : 'var(--accent-rose-dim)', color: eq.is_active ? 'var(--accent-emerald)' : 'var(--accent-rose)' }}>
+                        <span className="w-1.5 h-1.5 rounded-full" style={{ background: eq.is_active ? 'var(--accent-emerald)' : 'var(--accent-rose)' }} />
+                        {eq.is_active ? 'Active' : 'Inactive'}
+                      </span>
+                    </td>
+                    <td className="px-4 sm:px-6 py-4">
+                      <div className="flex flex-wrap sm:flex-nowrap items-center justify-end gap-2">
+                        <button onClick={() => openEdit(eq)} className="px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer"
+                          style={{ background: 'var(--accent-cyan-dim)', color: 'var(--accent-cyan)', border: 'none' }}>
+                          ✏️ Edit
+                        </button>
+                        <button onClick={() => handleToggle(eq.id, eq.is_active)} className="px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer"
+                          style={{ background: eq.is_active ? 'var(--accent-rose-dim)' : 'var(--accent-emerald-dim)', color: eq.is_active ? 'var(--accent-rose)' : 'var(--accent-emerald)', border: `1px solid ${eq.is_active ? 'rgba(244,63,94,0.2)' : 'rgba(16,185,129,0.2)'}` }}>
+                          {eq.is_active ? 'Deactivate' : 'Activate'}
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
 

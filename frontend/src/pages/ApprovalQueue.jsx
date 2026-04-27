@@ -106,23 +106,23 @@ export default function ApprovalQueue() {
           {resolved.length > 0 && (
             <div>
               <h2 className="text-base font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>History</h2>
-              <div className="rounded-xl overflow-hidden" style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)' }}>
-                <table className="w-full">
+              <div className="rounded-xl overflow-x-auto" style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)' }}>
+                <table className="w-full min-w-[600px]">
                   <thead>
                     <tr style={{ borderBottom: '1px solid var(--border-color)' }}>
-                      <th className="text-left px-6 py-3 text-xs font-semibold uppercase" style={{ color: 'var(--text-muted)' }}>Equipment</th>
-                      <th className="text-left px-6 py-3 text-xs font-semibold uppercase" style={{ color: 'var(--text-muted)' }}>User</th>
-                      <th className="text-left px-6 py-3 text-xs font-semibold uppercase" style={{ color: 'var(--text-muted)' }}>Time</th>
-                      <th className="text-left px-6 py-3 text-xs font-semibold uppercase" style={{ color: 'var(--text-muted)' }}>Status</th>
+                      <th className="text-left px-4 sm:px-6 py-3 text-xs font-semibold uppercase" style={{ color: 'var(--text-muted)' }}>Equipment</th>
+                      <th className="text-left px-4 sm:px-6 py-3 text-xs font-semibold uppercase" style={{ color: 'var(--text-muted)' }}>User</th>
+                      <th className="text-left px-4 sm:px-6 py-3 text-xs font-semibold uppercase" style={{ color: 'var(--text-muted)' }}>Time</th>
+                      <th className="text-left px-4 sm:px-6 py-3 text-xs font-semibold uppercase" style={{ color: 'var(--text-muted)' }}>Status</th>
                     </tr>
                   </thead>
                   <tbody>
                     {resolved.slice(0, 20).map(a => (
                       <tr key={a.id} style={{ borderBottom: '1px solid var(--border-color)' }}>
-                        <td className="px-6 py-3 text-sm" style={{ color: 'var(--text-primary)' }}>{a.equipment_name}</td>
-                        <td className="px-6 py-3 text-sm" style={{ color: 'var(--text-secondary)' }}>{a.user_name}</td>
-                        <td className="px-6 py-3 text-xs" style={{ color: 'var(--text-muted)' }}>{formatDate(a.start_time)}</td>
-                        <td className="px-6 py-3">
+                        <td className="px-4 sm:px-6 py-3 text-sm" style={{ color: 'var(--text-primary)' }}>{a.equipment_name}</td>
+                        <td className="px-4 sm:px-6 py-3 text-sm" style={{ color: 'var(--text-secondary)' }}>{a.user_name}</td>
+                        <td className="px-4 sm:px-6 py-3 text-xs" style={{ color: 'var(--text-muted)' }}>{formatDate(a.start_time)}</td>
+                        <td className="px-4 sm:px-6 py-3">
                           <span className="px-2 py-1 rounded text-xs font-medium" style={statusStyles[a.status]}>{a.status}</span>
                         </td>
                       </tr>
