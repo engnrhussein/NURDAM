@@ -1,4 +1,4 @@
-﻿/**
+/**
  * API utility â€” centralized fetch wrapper with JWT auth headers.
  */
 
@@ -74,10 +74,10 @@ export const api = {
       method: 'POST',
       body: JSON.stringify({ name }),
     }),
-  toggleEquipment: (id, is_active) =>
+  updateEquipment: (id, updates) =>
     request(`/v1/equipment/${id}`, {
       method: 'PATCH',
-      body: JSON.stringify({ is_active }),
+      body: JSON.stringify(updates),
     }),
 
   // Appointments

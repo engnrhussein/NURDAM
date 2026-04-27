@@ -38,15 +38,13 @@ export default function LoginPage() {
       <div className="w-full max-w-md animate-scale-in">
         {/* Brand header */}
         <div className="text-center mb-8">
-          <div
-            className="w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center text-2xl font-bold"
-            style={{
-              background: 'linear-gradient(135deg, #06b6d4, #0891b2)',
-              color: 'white',
-              boxShadow: '0 0 40px rgba(6, 182, 212, 0.3)',
-            }}
-          >
-            N
+          <div className="w-24 h-24 mx-auto mb-4 flex items-center justify-center">
+            <img 
+              src="/logo.png" 
+              alt="NÜRDAM Logo" 
+              className="w-full h-full object-contain" 
+              style={{ filter: 'drop-shadow(0 0 15px rgba(6, 182, 212, 0.4))' }}
+            />
           </div>
           <h1
             className="text-2xl font-bold tracking-wider"

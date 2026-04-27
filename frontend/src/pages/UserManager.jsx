@@ -192,13 +192,11 @@ export default function UserManager() {
                       <td className="px-4 py-4">
                         <div className="flex items-center gap-2">
                           <span className="text-sm font-mono" style={{ color: 'var(--text-secondary)' }}>
-                            {showPasswords[u.id] ? (u.password_plain || '—') : '••••••••'}
+                            {showPasswords[u.id] ? (u.password_plain || <span style={{color: 'var(--accent-amber)'}}>[Not Saved]</span>) : '••••••••'}
                           </span>
-                          {u.password_plain && (
-                            <button onClick={() => togglePassword(u.id)} className="text-xs cursor-pointer px-1" style={{ background: 'none', border: 'none', color: 'var(--accent-cyan)' }}>
-                              {showPasswords[u.id] ? '🙈' : '👁️'}
-                            </button>
-                          )}
+                          <button onClick={() => togglePassword(u.id)} className="text-xs cursor-pointer px-1" style={{ background: 'none', border: 'none', color: 'var(--accent-cyan)' }}>
+                            {showPasswords[u.id] ? '🙈' : '👁️'}
+                          </button>
                         </div>
                       </td>
                       <td className="px-4 py-4">

@@ -381,17 +381,43 @@ api.post('/equipment', adminOnly(), async (c) => {
 });
 
 /**
- * PATCH /api/v1/equipment/:id — Toggle equipment active status (admin only)
+ * PATCH /api/v1/equipment/:id — Update equipment name/status (admin only)
  */
 api.patch('/equipment/:id', adminOnly(), async (c) => {
   const id = parseInt(c.req.param('id'));
-  const { is_active } = await c.req.json<{ is_active: boolean }>();
+  const body = await c.req.json<{ is_active?: boolean; name?: string }>();
 
-  await c.env.DB.prepare('UPDATE Equipment SET is_active = ? WHERE id = ?')
-    .bind(is_active ? 1 : 0, id)
-    .run();
+  const updates: string[] = [];
+  const values: any[] = [];
 
-  return c.json({ message: 'Equipment updated successfully' });
+  if (body.name !== undefined && body.name.trim().length > 0) {
+    updates.push('name = ?');
+    values.push(body.name.trim());
+  }
+
+  if (body.is_active !== undefined) {
+    updates.push('is_active = ?');
+    values.push(body.is_active ? 1 : 0);
+  }
+
+  if (updates.length === 0) {
+    return c.json({ error: 'No fields to update' }, 400);
+  }
+
+  values.push(id);
+
+  try {
+    await c.env.DB.prepare(`UPDATE Equipment SET ${updates.join(', ')} WHERE id = ?`)
+      .bind(...values)
+      .run();
+
+    return c.json({ message: 'Equipment updated successfully' });
+  } catch (err: any) {
+    if (err.message?.includes('UNIQUE')) {
+      return c.json({ error: 'Equipment name already exists' }, 409);
+    }
+    throw err;
+  }
 });
 
 // ─── APPOINTMENTS ───────────────────────────────────────────────────
