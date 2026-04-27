@@ -6,6 +6,8 @@ const adminLinks = [
   { to: '/admin/equipment', label: 'Equipment', icon: '⚙️' },
   { to: '/admin/users', label: 'Users', icon: '👥' },
   { to: '/admin/approvals', label: 'Approvals', icon: '✅' },
+  { to: '/book', label: 'Book Equipment', icon: '📋' },
+  { to: '/log', label: 'Log Session', icon: '📝' },
   { to: '/calendar', label: 'Calendar', icon: '📅' },
 ];
 
@@ -19,7 +21,11 @@ const userLinks = [
 export default function Sidebar({ isOpen, onClose }) {
   const { user, isAdmin, logout } = useAuth();
   const navigate = useNavigate();
-  const links = isAdmin ? adminLinks : userLinks;
+  
+  let links = isAdmin ? adminLinks : userLinks;
+  if (isAdmin && !user?.is_boss) {
+    links = links.filter(link => link.to !== '/admin/approvals');
+  }
 
   const handleLogout = () => {
     logout();
@@ -56,13 +62,13 @@ export default function Sidebar({ isOpen, onClose }) {
         >
           <div className="flex items-center gap-3">
             <div
-              className="w-10 h-10 rounded-xl flex items-center justify-center p-1.5"
+              className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center shrink-0"
               style={{
                 background: 'linear-gradient(135deg, #06b6d4, #0891b2)',
                 boxShadow: 'var(--shadow-glow-cyan)',
               }}
             >
-              <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
+              <img src="/logo.png" alt="Logo" className="w-full h-full object-cover" />
             </div>
             <div>
               <h1

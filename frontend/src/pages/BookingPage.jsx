@@ -17,6 +17,18 @@ export default function BookingPage() {
   const [submitting, setSubmitting] = useState(false);
   const [message, setMessage] = useState(null);
 
+  // Auto-update end time to be at least 30 mins after start time if it falls behind
+  useEffect(() => {
+    if (startTime && endTime) {
+      const s = new Date(startTime);
+      const e = new Date(endTime);
+      if (e <= s) {
+        const newE = new Date(s.getTime() + 30 * 60000);
+        setEndTime(new Date(newE.getTime() - newE.getTimezoneOffset() * 60000).toISOString().slice(0, 16));
+      }
+    }
+  }, [startTime]);
+
   useEffect(() => {
     api.getEquipment().then(d => {
       const active = (d.equipment || []).filter(e => e.is_active);
@@ -77,11 +89,13 @@ export default function BookingPage() {
             <div>
               <label className="block text-sm font-medium mb-2" style={{ color: 'var(--text-secondary)' }}>Start Time</label>
               <input type="datetime-local" value={startTime} onChange={e => setStartTime(e.target.value)} required
+                min={new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16)}
                 className="w-full px-4 py-3 rounded-lg text-sm outline-none" style={inputStyle} />
             </div>
             <div>
               <label className="block text-sm font-medium mb-2" style={{ color: 'var(--text-secondary)' }}>End Time</label>
               <input type="datetime-local" value={endTime} onChange={e => setEndTime(e.target.value)} required
+                min={startTime || new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16)}
                 className="w-full px-4 py-3 rounded-lg text-sm outline-none" style={inputStyle} />
             </div>
             <button type="submit" disabled={submitting} className="w-full py-3 rounded-lg text-sm font-semibold cursor-pointer mt-2"

@@ -526,6 +526,12 @@ api.post('/appointments', async (c) => {
  */
 api.patch('/appointments/:id', adminOnly(), async (c) => {
   const id = parseInt(c.req.param('id'));
+  const payload = c.get('jwtPayload');
+  
+  if (!payload.is_boss) {
+    return c.json({ error: 'Only the boss admin can approve or reject bookings' }, 403);
+  }
+
   const { status } = await c.req.json<{ status: 'approved' | 'rejected' }>();
 
   if (!['approved', 'rejected'].includes(status)) {

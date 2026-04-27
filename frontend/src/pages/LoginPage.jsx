@@ -1,7 +1,92 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { api } from '../lib/api';
+
+function ParticleBackground() {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    let animationFrameId;
+    let particles = [];
+
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    window.addEventListener('resize', resize);
+    resize();
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * 2;
+        this.vy = (Math.random() - 0.5) * 2;
+        this.radius = Math.random() * 2 + 1;
+        this.color = `hsla(${Math.random() * 60 + 180}, 100%, 70%, ${Math.random() * 0.5 + 0.2})`;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < 80; i++) particles.push(new Particle());
+
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Update and draw particles
+      particles.forEach(p => p.update());
+      particles.forEach(p => p.draw());
+
+      // Draw connections (collisions/bonds)
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          
+          if (dist < 100) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(6, 182, 212, ${1 - dist/100})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+
+      animationFrameId = requestAnimationFrame(animate);
+    };
+    animate();
+
+    return () => {
+      window.removeEventListener('resize', resize);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
+  return (
+    <canvas 
+      ref={canvasRef} 
+      className="fixed inset-0 z-0 pointer-events-none"
+      style={{ background: 'var(--bg-primary)' }}
+    />
+  );
+}
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
@@ -28,23 +113,19 @@ export default function LoginPage() {
   };
 
   return (
-    <div
-      className="min-h-screen flex items-center justify-center px-4"
-      style={{
-        background:
-          'radial-gradient(ellipse at 50% 0%, rgba(6, 182, 212, 0.12) 0%, var(--bg-primary) 60%)',
-      }}
-    >
-      <div className="w-full max-w-md animate-scale-in">
+    <div className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden">
+      <ParticleBackground />
+      <div className="w-full max-w-md animate-scale-in relative z-10">
         {/* Brand header */}
         <div className="text-center mb-8">
-          <div className="w-24 h-24 mx-auto mb-4 flex items-center justify-center">
-            <img 
-              src="/logo.png" 
-              alt="NÜRDAM Logo" 
-              className="w-full h-full object-contain" 
-              style={{ filter: 'drop-shadow(0 0 15px rgba(6, 182, 212, 0.4))' }}
-            />
+          <div
+            className="w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center p-2"
+            style={{
+              background: 'linear-gradient(135deg, #06b6d4, #0891b2)',
+              boxShadow: '0 0 40px rgba(6, 182, 212, 0.5)',
+            }}
+          >
+            <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
           </div>
           <h1
             className="text-2xl font-bold tracking-wider"

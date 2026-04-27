@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../lib/api';
+import { useAuth } from '../context/AuthContext';
 
 function StatCard({ icon, label, value, color, delay }) {
   return (
@@ -41,6 +42,7 @@ function StatCard({ icon, label, value, color, delay }) {
 }
 
 export default function AdminDashboard() {
+  const { user } = useAuth();
   const [stats, setStats] = useState(null);
   const [recentLogs, setRecentLogs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -131,13 +133,13 @@ export default function AdminDashboard() {
       {/* Quick actions */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
         {[
-          {
+          ...(user?.is_boss ? [{
             to: '/admin/approvals',
             icon: '✅',
             title: 'Review Approvals',
             desc: 'Process pending booking requests',
             color: 'var(--accent-amber)',
-          },
+          }] : []),
           {
             to: '/admin/users',
             icon: '👤',
