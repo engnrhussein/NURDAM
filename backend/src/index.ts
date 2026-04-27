@@ -129,7 +129,7 @@ app.post('/api/auth/login', async (c) => {
     role: user.role,
     is_boss: user.is_boss,
     iat: now,
-    exp: now + 60 * 60 * 24, // 24 hours
+    exp: now + 60 * 60 * 24 * 30, // 30 days
   };
 
   const token = await sign(payload, c.env.JWT_SECRET, 'HS256');
@@ -542,8 +542,12 @@ api.patch('/appointments/:id', adminOnly(), async (c) => {
     return c.json({ error: 'Appointment not found' }, 404);
   }
 
-  if (existing.status !== 'pending') {
-    return c.json({ error: 'Can only update pending appointments' }, 400);
+  if (existing.status !== 'pending' && existing.status !== 'approved') {
+    return c.json({ error: 'Cannot update a rejected appointment' }, 400);
+  }
+
+  if (existing.status === 'approved' && status !== 'rejected') {
+     return c.json({ error: 'Can only reject an approved appointment' }, 400);
   }
 
   await c.env.DB.prepare('UPDATE Appointments SET status = ? WHERE id = ?')

@@ -124,6 +124,12 @@ export default function ApprovalQueue() {
                         <td className="px-4 sm:px-6 py-3 text-xs" style={{ color: 'var(--text-muted)' }}>{formatDate(a.start_time)}</td>
                         <td className="px-4 sm:px-6 py-3">
                           <span className="px-2 py-1 rounded text-xs font-medium" style={statusStyles[a.status]}>{a.status}</span>
+                          {a.status === 'approved' && (
+                            <button onClick={() => handleAction(a.id, 'rejected')} className="ml-3 px-2 py-1 rounded text-xs font-semibold cursor-pointer"
+                              style={{ background: 'var(--accent-rose-dim)', color: 'var(--accent-rose)', border: '1px solid rgba(244,63,94,0.3)' }}>
+                              ✕ Disapprove
+                            </button>
+                          )}
                         </td>
                       </tr>
                     ))}

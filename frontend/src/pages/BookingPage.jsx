@@ -1,11 +1,18 @@
 import { useState, useEffect } from 'react';
 import { api } from '../lib/api';
 
+function getDefaultTime(hours, minutes) {
+  const d = new Date();
+  if (d.getHours() >= 17) d.setDate(d.getDate() + 1);
+  d.setHours(hours, minutes, 0, 0);
+  return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+}
+
 export default function BookingPage() {
   const [equipment, setEquipment] = useState([]);
   const [equipmentId, setEquipmentId] = useState('');
-  const [startTime, setStartTime] = useState('');
-  const [endTime, setEndTime] = useState('');
+  const [startTime, setStartTime] = useState(() => getDefaultTime(8, 30));
+  const [endTime, setEndTime] = useState(() => getDefaultTime(17, 0));
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [message, setMessage] = useState(null);

@@ -291,3 +291,8 @@ body {
   border-color: rgba(6, 182, 212, 0.3);
   color: #67e8f9;
 }
+
+/* Calendar Event Truncation for Mobile */
+.fc-event-title, .fc-event-time { white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; }
+.fc-daygrid-event { max-width: 100%; }
+
