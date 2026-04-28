@@ -1,8 +1,8 @@
 /**
- * API utility â€” centralized fetch wrapper with JWT auth headers.
+ * API utility — centralized fetch wrapper with JWT auth headers.
  */
 
-const BASE_URL = 'https://nurdam-cleanroom-api.abdallahussein713.workers.dev/api';
+const BASE_URL = '/api';
 
 function getToken() {
   return localStorage.getItem('nurdam_token');
@@ -74,10 +74,10 @@ export const api = {
       method: 'POST',
       body: JSON.stringify({ name }),
     }),
-  updateEquipment: (id, updates) =>
+  toggleEquipment: (id, is_active) =>
     request(`/v1/equipment/${id}`, {
       method: 'PATCH',
-      body: JSON.stringify(updates),
+      body: JSON.stringify({ is_active }),
     }),
 
   // Appointments
@@ -94,11 +94,12 @@ export const api = {
     }),
 
   // Logs
+  // Logs
   getLogs: () => request('/v1/logs'),
-  createLog: (equipment_id, machine_status, observations) =>
+  createLog: (payload) =>
     request('/v1/logs', {
       method: 'POST',
-      body: JSON.stringify({ equipment_id, machine_status, observations }),
+      body: JSON.stringify(payload),
     }),
 
   // Calendar
