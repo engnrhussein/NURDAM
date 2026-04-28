@@ -118,14 +118,8 @@ export default function LoginPage() {
       <div className="w-full max-w-md animate-scale-in relative z-10">
         {/* Brand header */}
         <div className="text-center mb-8">
-          <div
-            className="w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center p-2"
-            style={{
-              background: 'linear-gradient(135deg, #06b6d4, #0891b2)',
-              boxShadow: '0 0 40px rgba(6, 182, 212, 0.5)',
-            }}
-          >
-            <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
+          <div className="w-24 h-24 mx-auto mb-4 flex items-center justify-center">
+            <img src="/logo.png" alt="Logo" className="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(6,182,212,0.5)]" />
           </div>
           <h1
             className="text-2xl font-bold tracking-wider"

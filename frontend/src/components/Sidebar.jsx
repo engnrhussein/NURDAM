@@ -61,14 +61,8 @@ export default function Sidebar({ isOpen, onClose }) {
           style={{ borderBottom: '1px solid var(--border-color)' }}
         >
           <div className="flex items-center gap-3">
-            <div
-              className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center shrink-0"
-              style={{
-                background: 'linear-gradient(135deg, #06b6d4, #0891b2)',
-                boxShadow: 'var(--shadow-glow-cyan)',
-              }}
-            >
-              <img src="/logo.png" alt="Logo" className="w-full h-full object-cover" />
+            <div className="w-10 h-10 flex items-center justify-center shrink-0">
+              <img src="/logo.png" alt="Logo" className="w-full h-full object-contain drop-shadow-[0_0_8px_rgba(6,182,212,0.4)]" />
             </div>
             <div>
               <h1

@@ -11,9 +11,8 @@ export default function Layout() {
       <div className="md:hidden fixed top-0 left-0 right-0 h-16 z-40 flex items-center justify-between px-4" 
            style={{ background: 'var(--bg-sidebar)', borderBottom: '1px solid var(--border-color)', backdropFilter: 'blur(16px)' }}>
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full overflow-hidden flex items-center justify-center"
-               style={{ background: 'linear-gradient(135deg, #06b6d4, #0891b2)', color: 'white' }}>
-            <img src="/logo.png" alt="Logo" className="w-full h-full object-cover" />
+          <div className="w-8 h-8 flex items-center justify-center">
+            <img src="/logo.png" alt="Logo" className="w-full h-full object-contain drop-shadow-[0_0_8px_rgba(6,182,212,0.4)]" />
           </div>
           <span className="font-bold text-sm" style={{ color: 'var(--text-primary)' }}>NÜRDAM</span>
         </div>
