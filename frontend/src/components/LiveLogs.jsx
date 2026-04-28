@@ -77,7 +77,7 @@ export default function LiveLogs() {
                   <td className="px-4 py-3 text-xs font-mono" style={{ color: isMag ? 'var(--text-secondary)' : 'var(--border-color)' }}>{isMag ? log.installed_gauge : '-'}</td>
                   <td className="px-4 py-3 text-xs font-mono" style={{ color: isMag ? 'var(--text-secondary)' : 'var(--border-color)' }}>{isMag ? log.connect_machine : '-'}</td>
                   <td className="px-4 py-3 text-xs font-mono" style={{ color: isMag ? 'var(--text-secondary)' : 'var(--border-color)' }}>{isMag ? log.temperature : '-'}</td>
-                  <td className="px-4 py-3 text-xs max-w-[200px] truncate" title={log.observations} style={{ color: 'var(--text-muted)' }}>{log.observations || '-'}</td>
+                  <td className="px-4 py-3 text-xs md:max-w-[200px] truncate" title={log.observations} style={{ color: 'var(--text-muted)' }}>{log.observations || '-'}</td>
                 </tr>
               )
             })}
