@@ -217,7 +217,7 @@ export default function UserManager() {
                           {u.is_blocked ? '🚫 Blocked' : '✅ Active'}
                         </span>
                       </td>
-                      <td className="px-4 py-4 text-xs" style={{ color: 'var(--text-muted)' }}>{new Date(u.created_at).toLocaleDateString()}</td>
+                      <td className="px-4 py-4 text-xs" style={{ color: 'var(--text-muted)' }}>{new Date(u.created_at.replace(' ', 'T') + 'Z').toLocaleDateString()}</td>
                       <td className="px-4 py-4">
                         <div className="flex items-center gap-2 justify-end">
                           {canEdit && (

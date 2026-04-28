@@ -62,7 +62,7 @@ export default function LiveLogs() {
               return (
                 <tr key={log.id} className="hover:bg-slate-800/30 transition-colors">
                   <td className="px-4 py-3 text-sm md:text-xs justify-center md:justify-start whitespace-nowrap" style={{ color: 'var(--text-muted)' }}>
-                    {new Date(log.created_at).toLocaleString('en-GB', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' })}
+                    {new Date(log.created_at.replace(' ', 'T') + 'Z').toLocaleString('en-GB', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' })}
                   </td>
                   <td className="px-4 py-3 text-sm font-medium justify-center md:justify-start" style={{ color: 'var(--text-primary)' }}>{log.user_name}</td>
                   <td className="px-4 py-3 text-sm" style={{ color: 'var(--accent-cyan)' }}>{log.equipment_name}</td>
