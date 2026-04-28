@@ -64,7 +64,7 @@ export default function LiveLogs() {
                   <td className="px-4 py-3 text-sm md:text-xs justify-center md:justify-start whitespace-nowrap" style={{ color: 'var(--text-muted)' }}>
                     {new Date(log.created_at).toLocaleString('en-GB', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' })}
                   </td>
-                  <td className="px-4 py-3 text-sm font-medium" style={{ color: 'var(--text-primary)' }}>{log.user_name}</td>
+                  <td className="px-4 py-3 text-sm font-medium justify-center md:justify-start" style={{ color: 'var(--text-primary)' }}>{log.user_name}</td>
                   <td className="px-4 py-3 text-sm" style={{ color: 'var(--accent-cyan)' }}>{log.equipment_name}</td>
                   <td className="px-4 py-3 justify-center md:justify-start">
                     <span className="text-lg" title={log.machine_status}>
