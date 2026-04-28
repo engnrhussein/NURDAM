@@ -591,6 +591,7 @@ api.get('/logs', async (c) => {
  * POST /api/v1/logs — Create a session log
  */
 api.post('/logs', async (c) => {
+  const payload = c.get('jwtPayload');
   const { 
     equipment_id, 
     machine_status, 
