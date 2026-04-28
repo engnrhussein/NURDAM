@@ -572,36 +572,17 @@ api.get('/logs', async (c) => {
   const payload = c.get('jwtPayload');
   const db = c.env.DB;
 
-  let query: string;
-  let params: any[];
+  const query = `
+    SELECT l.id, l.user_id, l.equipment_id, l.machine_status, l.observations, l.created_at,
+           l.system_vacuum, l.process_vacuum, l.foreline_vacuum, l.installed_gauge, l.connect_machine, l.temperature,
+           u.name as user_name, e.name as equipment_name
+    FROM Logs l
+    JOIN Users u ON l.user_id = u.id
+    JOIN Equipment e ON l.equipment_id = e.id
+    ORDER BY l.created_at DESC
+  `;
 
-  if (payload.role === 'admin') {
-    query = `
-      SELECT l.id, l.user_id, l.equipment_id, l.machine_status, l.observations, l.created_at,
-             l.system_vacuum, l.process_vacuum, l.foreline_vacuum, l.installed_gauge, l.connect_machine, l.temperature,
-             u.name as user_name, e.name as equipment_name
-      FROM Logs l
-      JOIN Users u ON l.user_id = u.id
-      JOIN Equipment e ON l.equipment_id = e.id
-      ORDER BY l.created_at DESC
-    `;
-    params = [];
-  } else {
-    query = `
-      SELECT l.id, l.user_id, l.equipment_id, l.machine_status, l.observations, l.created_at,
-             l.system_vacuum, l.process_vacuum, l.foreline_vacuum, l.installed_gauge, l.connect_machine, l.temperature,
-             u.name as user_name, e.name as equipment_name
-      FROM Logs l
-      JOIN Users u ON l.user_id = u.id
-      JOIN Equipment e ON l.equipment_id = e.id
-      WHERE l.user_id = ?
-      ORDER BY l.created_at DESC
-    `;
-    params = [payload.sub];
-  }
-
-  const stmt = db.prepare(query);
-  const { results } = params.length > 0 ? await stmt.bind(...params).all() : await stmt.all();
+  const { results } = await db.prepare(query).all();
 
   return c.json({ logs: results });
 });

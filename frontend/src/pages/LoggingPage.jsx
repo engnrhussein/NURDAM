@@ -14,29 +14,29 @@ function ScientificInput({ label, state, onChange, units }) {
   return (
     <div>
       <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>{label}</label>
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         <input 
           type="number" 
           step="any"
           value={state.base} 
           onChange={e => onChange({ ...state, base: e.target.value })}
           placeholder="0.0"
-          className="flex-1 px-3 py-2 rounded-lg text-sm outline-none"
+          className="flex-1 min-w-[80px] px-3 py-2 rounded-lg text-sm outline-none"
           style={{ background: 'var(--bg-input)', border: '1px solid var(--border-color)', color: 'var(--text-primary)' }}
         />
-        <span className="font-semibold" style={{ color: 'var(--text-muted)' }}>E</span>
+        <span className="font-semibold shrink-0" style={{ color: 'var(--text-muted)' }}>E</span>
         <input 
           type="number" 
           value={state.exp} 
           onChange={e => onChange({ ...state, exp: e.target.value })}
           placeholder="-0"
-          className="w-20 px-3 py-2 rounded-lg text-sm outline-none"
+          className="w-20 shrink-0 px-3 py-2 rounded-lg text-sm outline-none"
           style={{ background: 'var(--bg-input)', border: '1px solid var(--border-color)', color: 'var(--text-primary)' }}
         />
         <select 
           value={state.unit} 
           onChange={e => onChange({ ...state, unit: e.target.value })}
-          className="w-20 px-2 py-2 rounded-lg text-sm outline-none cursor-pointer"
+          className="w-20 shrink-0 px-2 py-2 rounded-lg text-sm outline-none cursor-pointer"
           style={{ background: 'var(--bg-input)', border: '1px solid var(--border-color)', color: 'var(--text-primary)' }}
         >
           {units.map(u => <option key={u} value={u}>{u}</option>)}
