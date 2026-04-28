@@ -578,6 +578,7 @@ api.get('/logs', async (c) => {
   if (payload.role === 'admin') {
     query = `
       SELECT l.id, l.user_id, l.equipment_id, l.machine_status, l.observations, l.created_at,
+             l.system_vacuum, l.process_vacuum, l.foreline_vacuum, l.installed_gauge, l.connect_machine, l.temperature,
              u.name as user_name, e.name as equipment_name
       FROM Logs l
       JOIN Users u ON l.user_id = u.id
@@ -588,6 +589,7 @@ api.get('/logs', async (c) => {
   } else {
     query = `
       SELECT l.id, l.user_id, l.equipment_id, l.machine_status, l.observations, l.created_at,
+             l.system_vacuum, l.process_vacuum, l.foreline_vacuum, l.installed_gauge, l.connect_machine, l.temperature,
              u.name as user_name, e.name as equipment_name
       FROM Logs l
       JOIN Users u ON l.user_id = u.id
@@ -608,11 +610,26 @@ api.get('/logs', async (c) => {
  * POST /api/v1/logs — Create a session log
  */
 api.post('/logs', async (c) => {
-  const payload = c.get('jwtPayload');
-  const { equipment_id, machine_status, observations } = await c.req.json<{
+  const { 
+    equipment_id, 
+    machine_status, 
+    observations,
+    system_vacuum,
+    process_vacuum,
+    foreline_vacuum,
+    installed_gauge,
+    connect_machine,
+    temperature
+  } = await c.req.json<{
     equipment_id: number;
     machine_status: string;
     observations?: string;
+    system_vacuum?: string;
+    process_vacuum?: string;
+    foreline_vacuum?: string;
+    installed_gauge?: string;
+    connect_machine?: string;
+    temperature?: string;
   }>();
 
   if (!equipment_id || !machine_status) {
@@ -624,9 +641,23 @@ api.post('/logs', async (c) => {
   }
 
   const result = await c.env.DB.prepare(
-    'INSERT INTO Logs (user_id, equipment_id, machine_status, observations) VALUES (?, ?, ?, ?)'
+    `INSERT INTO Logs (
+      user_id, equipment_id, machine_status, observations,
+      system_vacuum, process_vacuum, foreline_vacuum, installed_gauge, connect_machine, temperature
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
   )
-    .bind(payload.sub, equipment_id, machine_status, observations || null)
+    .bind(
+      payload.sub, 
+      equipment_id, 
+      machine_status, 
+      observations || null,
+      system_vacuum || '-',
+      process_vacuum || '-',
+      foreline_vacuum || '-',
+      installed_gauge || '-',
+      connect_machine || '-',
+      temperature || '-'
+    )
     .run();
 
   return c.json({

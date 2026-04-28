@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../lib/api';
 import { useAuth } from '../context/AuthContext';
+import LiveLogs from '../components/LiveLogs';
 
 function StatCard({ icon, label, value, color, delay }) {
   return (
@@ -97,6 +98,8 @@ export default function AdminDashboard() {
           Overview of your cleanroom operations
         </p>
       </div>
+
+      <LiveLogs />
 
       {/* Stats grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">

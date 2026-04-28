@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { api } from '../lib/api';
+import LiveLogs from '../components/LiveLogs';
 
 export default function UserDashboard() {
   const { user } = useAuth();
@@ -27,6 +28,8 @@ export default function UserDashboard() {
         <h1 className="text-2xl font-bold mb-1" style={{ color: 'var(--text-primary)' }}>Welcome, {user?.name}</h1>
         <p className="text-sm" style={{ color: 'var(--text-muted)' }}>Manage your equipment bookings and session logs</p>
       </div>
+
+      <LiveLogs />
 
       {/* Quick stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
