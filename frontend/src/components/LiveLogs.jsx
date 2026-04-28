@@ -61,7 +61,7 @@ export default function LiveLogs() {
               const isMag = log.equipment_name.toLowerCase().includes('magnetron');
               return (
                 <tr key={log.id} className="hover:bg-slate-800/30 transition-colors">
-                  <td className="px-4 py-3 text-xs whitespace-nowrap" style={{ color: 'var(--text-muted)' }}>
+                  <td className="px-4 py-3 text-sm md:text-xs justify-center md:justify-start whitespace-nowrap" style={{ color: 'var(--text-muted)' }}>
                     {new Date(log.created_at).toLocaleString('en-GB', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' })}
                   </td>
                   <td className="px-4 py-3 text-sm font-medium" style={{ color: 'var(--text-primary)' }}>{log.user_name}</td>
@@ -71,12 +71,12 @@ export default function LiveLogs() {
                       {log.machine_status === 'good' ? '✅' : log.machine_status === 'offline' ? '🔴' : '🔧'}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-xs font-mono" style={{ color: isMag ? 'var(--text-secondary)' : 'var(--border-color)' }}>{isMag ? log.system_vacuum : '-'}</td>
-                  <td className="px-4 py-3 text-xs font-mono" style={{ color: isMag ? 'var(--text-secondary)' : 'var(--border-color)' }}>{isMag ? log.process_vacuum : '-'}</td>
-                  <td className="px-4 py-3 text-xs font-mono" style={{ color: isMag ? 'var(--text-secondary)' : 'var(--border-color)' }}>{isMag ? log.foreline_vacuum : '-'}</td>
-                  <td className="px-4 py-3 text-xs font-mono" style={{ color: isMag ? 'var(--text-secondary)' : 'var(--border-color)' }}>{isMag ? log.installed_gauge : '-'}</td>
-                  <td className="px-4 py-3 text-xs font-mono" style={{ color: isMag ? 'var(--text-secondary)' : 'var(--border-color)' }}>{isMag ? log.connect_machine : '-'}</td>
-                  <td className="px-4 py-3 text-xs font-mono" style={{ color: isMag ? 'var(--text-secondary)' : 'var(--border-color)' }}>{isMag ? log.temperature : '-'}</td>
+                  <td className="px-4 py-3 text-sm md:text-xs font-bold md:font-normal font-mono justify-center md:justify-start" style={{ color: isMag ? 'var(--text-secondary)' : 'var(--border-color)' }}>{isMag ? log.system_vacuum : '-'}</td>
+                  <td className="px-4 py-3 text-sm md:text-xs font-bold md:font-normal font-mono justify-center md:justify-start" style={{ color: isMag ? 'var(--text-secondary)' : 'var(--border-color)' }}>{isMag ? log.process_vacuum : '-'}</td>
+                  <td className="px-4 py-3 text-sm md:text-xs font-bold md:font-normal font-mono justify-center md:justify-start" style={{ color: isMag ? 'var(--text-secondary)' : 'var(--border-color)' }}>{isMag ? log.foreline_vacuum : '-'}</td>
+                  <td className="px-4 py-3 text-sm md:text-xs font-bold md:font-normal font-mono justify-center md:justify-start" style={{ color: isMag ? 'var(--text-secondary)' : 'var(--border-color)' }}>{isMag ? log.installed_gauge : '-'}</td>
+                  <td className="px-4 py-3 text-sm md:text-xs font-bold md:font-normal font-mono justify-center md:justify-start" style={{ color: isMag ? 'var(--text-secondary)' : 'var(--border-color)' }}>{isMag ? log.connect_machine : '-'}</td>
+                  <td className="px-4 py-3 text-sm md:text-xs font-bold md:font-normal font-mono justify-center md:justify-start" style={{ color: isMag ? 'var(--text-secondary)' : 'var(--border-color)' }}>{isMag ? log.temperature : '-'}</td>
                   <td className="px-4 py-3 text-xs md:max-w-[200px] truncate" title={log.observations} style={{ color: 'var(--text-muted)' }}>{log.observations || '-'}</td>
                 </tr>
               )
