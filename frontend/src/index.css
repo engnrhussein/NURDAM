@@ -296,3 +296,39 @@ body {
 .fc-event-title, .fc-event-time { white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; }
 .fc-daygrid-event { max-width: 100%; }
 
+/* Mobile Rotated Table */
+@media (max-width: 768px) {
+  .mobile-rotated-table {
+    display: flex;
+  }
+  .mobile-rotated-table thead,
+  .mobile-rotated-table tbody {
+    display: flex;
+  }
+  .mobile-rotated-table thead {
+    flex-shrink: 0;
+  }
+  .mobile-rotated-table tr {
+    display: flex;
+    flex-direction: column;
+  }
+  .mobile-rotated-table th,
+  .mobile-rotated-table td {
+    display: flex;
+    align-items: center;
+    height: 56px;
+    padding: 0 16px;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border-color) !important;
+  }
+  .mobile-rotated-table th {
+    border-right: 2px solid var(--border-color) !important;
+    background: var(--bg-secondary);
+  }
+  .mobile-rotated-table td {
+    border-right: 1px solid var(--border-color) !important;
+  }
+  .mobile-rotated-table tr > *:last-child {
+    border-bottom: none !important;
+  }
+}

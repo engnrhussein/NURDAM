@@ -40,7 +40,7 @@ export default function LiveLogs() {
       </div>
       
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[1000px]">
+        <table className="w-full md:min-w-[1000px] mobile-rotated-table">
           <thead>
             <tr style={{ borderBottom: '1px solid var(--border-color)' }}>
               <th className="text-left px-4 py-3 text-xs font-semibold uppercase" style={{ color: 'var(--text-muted)' }}>Time</th>
