@@ -66,7 +66,7 @@ export default function LiveLogs() {
                   </td>
                   <td className="px-4 py-3 text-sm font-medium" style={{ color: 'var(--text-primary)' }}>{log.user_name}</td>
                   <td className="px-4 py-3 text-sm" style={{ color: 'var(--accent-cyan)' }}>{log.equipment_name}</td>
-                  <td className="px-4 py-3">
+                  <td className="px-4 py-3 justify-center md:justify-start">
                     <span className="text-lg" title={log.machine_status}>
                       {log.machine_status === 'good' ? '✅' : log.machine_status === 'offline' ? '🔴' : '🔧'}
                     </span>
